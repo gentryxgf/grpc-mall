@@ -1,0 +1,27 @@
+name: "goods_srv"
+mode: "dev"
+ip: "127.0.0.1"
+rpcPort: 8381
+httpPort: 8091
+version: "v0.0.1"
+start_time: "2023-08-24"
+machine_id: 1
+
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "123456"
+  dbname: "livesrv"
+  max_open_conns: 100
+  max_idle_conns: 10
+
+log:
+  level: "debug"
+  filename: "goods_srv.log"
+  max_size: 200
+  max_age: 30
+  max_backups: 7
+
+consul:
+  address: "127.0.0.1:8500"

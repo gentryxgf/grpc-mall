@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "store_service/proto;proto";
+
+import "google/api/annotations.proto";
+
+service Store{
+    // 设置库存数
+    rpc SetStore(GoodsStoreInfo) returns (BaseResp) {
+        option (google.api.http) = {
+            post: "/v1/setstore"
+            body: "*"
+        };
+    };
+    // 获取库存数
+    rpc GetStore(GoodsStoreInfo) returns (GoodsStoreInfo) {
+        option (google.api.http) = {
+            get: "/v1/getstore"
+        };
+    };
+    // 批量获取库存数
+    rpc BatchGetStore(GoodsListStore) returns (GoodsListStore) {};
+    // 扣减库存数
+    rpc ReduceStore(GoodsStoreInfo) returns (GoodsStoreInfo) {
+        option (google.api.http) = {
+            post: "/v1/reducestore"
+            body: "*"
+        };
+    };
+    // 批量扣减库存
+    rpc BatchReduceStore(GoodsListStore) returns (GoodsListStore) {};
+    // 回滚库存
+    rpc RollbackStore(GoodsListStore) returns (BaseResp) {};
+
+}
+
+message GoodsStoreInfo {
+    int64 GoodsId = 1;
+    int64 Num = 2;
+    int64 OrderId = 3;
+}
+
+message GoodsListStore {
+    repeated GoodsStoreInfo data = 1;
+}
+
+message BaseResp {
+    int32 code = 1;
+    string msg = 2;
+}
+
